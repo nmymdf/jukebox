@@ -23,7 +23,24 @@ jobs:
           gradle-version: 8.9
 
       - name: Build debug APK
-        run: gradle assembleDebug --no-daemon
+        id: build
+        continue-on-error: true
+        shell: bash
+        run: gradle assembleDebug --no-daemon --console=plain 2>&1 | tee build.log
+
+      - name: Publish build log when the build fails
+        if: steps.build.outcome == 'failure'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: buildlog
+          name: build log (latest failed build)
+          prerelease: true
+          files: build.log
+          overwrite_files: true
+
+      - name: Stop here if the build failed
+        if: steps.build.outcome == 'failure'
+        run: exit 1
 
       - name: Rename APK with version
         run: |
@@ -31,11 +48,6 @@ jobs:
           mv app/build/outputs/apk/debug/app-debug.apk "jukebox-v${VER}.apk"
           echo "APK_NAME=jukebox-v${VER}.apk" >> "$GITHUB_ENV"
           echo "VER=${VER}" >> "$GITHUB_ENV"
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: jukebox-apk
-          path: ${{ env.APK_NAME }}
 
       - name: Publish APK to Releases
         uses: softprops/action-gh-release@v2
