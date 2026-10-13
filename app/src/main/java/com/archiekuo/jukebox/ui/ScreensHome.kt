@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,9 +23,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.GraphicEq
-import androidx.compose.material.icons.filled.Mic
-import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -52,21 +50,12 @@ fun SplashScreen(onDone: () -> Unit) {
         onDone()
     }
     Box(Modifier.fillMaxSize().background(Color(0xFF0B1226))) {
-        Box(
-            Modifier.fillMaxSize().background(
-                Brush.verticalGradient(listOf(Color(0xFF2B1E5C), Color(0xFF0F2A55), Color(0xFF0B1226))),
-            ),
+        Image(
+            painter = painterResource(R.drawable.splash_bg),
+            contentDescription = null,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Crop,
         )
-        Column(
-            Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Icon(Icons.Filled.Mic, contentDescription = null, tint = Gold, modifier = Modifier.size(88.dp))
-            Spacer(Modifier.height(16.dp))
-            Text("點唱收音機", color = Color.White, fontSize = 34.sp, fontWeight = FontWeight.Bold)
-            Spacer(Modifier.height(6.dp))
-            Text("A good song, a place to rest", color = Gold, fontSize = 24.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
-        }
         Box(
             Modifier
                 .align(Alignment.BottomCenter)
@@ -121,33 +110,16 @@ fun HomeScreen(
                 Modifier
                     .padding(horizontal = 20.dp, vertical = 10.dp)
                     .fillMaxWidth()
-                    .height(heroH)
+                    .aspectRatio(197f / 110f)
                     .clip(RoundedCornerShape(18.dp))
                     .clickable(onClick = onPlayRandom),
             ) {
-                Box(
-                    Modifier.fillMaxSize().background(
-                        Brush.linearGradient(listOf(Color(0xFF3B2A6B), Color(0xFF0F2A55), Color(0xFF123F5A))),
-                    ),
-                ) {
-                    Icon(
-                        Icons.Filled.GraphicEq, contentDescription = null,
-                        tint = Gold.copy(alpha = 0.25f),
-                        modifier = Modifier.align(Alignment.CenterEnd).padding(end = 12.dp).size(heroH * 0.8f),
-                    )
-                    Column(Modifier.align(Alignment.CenterStart).padding(20.dp)) {
-                        Text("A Good Song,", color = Color.White, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
-                        Text("A Place to Rest.", color = Gold, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
-                        Spacer(Modifier.height(10.dp))
-                        Row(
-                            Modifier.clip(RoundedCornerShape(50)).background(Gold).padding(horizontal = 14.dp, vertical = 6.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            Icon(Icons.Filled.PlayArrow, contentDescription = null, tint = Color(0xFF2A1D00), modifier = Modifier.size(18.dp))
-                            Text("隨機播放", color = Color(0xFF2A1D00), fontSize = 13.sp, fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
+                Image(
+                    painter = painterResource(R.drawable.home_hero),
+                    contentDescription = "隨機播放熱門歌曲",
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop,
+                )
             }
             if (message != null) {
                 Text(

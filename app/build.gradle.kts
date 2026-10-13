@@ -12,15 +12,28 @@ android {
         applicationId = "com.archiekuo.jukebox"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "1.3.0"
+        versionCode = 5
+        versionName = "1.3.1"
 
         // Optional built-in Client ID, filled from the GitHub secret JAMENDO_CLIENT_ID when building.
         val defaultId = (System.getenv("JAMENDO_CLIENT_ID") ?: "").replace("\"", "").trim()
         buildConfigField("String", "DEFAULT_CLIENT_ID", "\"$defaultId\"")
     }
 
+    // Fixed signing key so every new version installs over the old one (no uninstall needed).
+    signingConfigs {
+        create("fixed") {
+            storeFile = file("jukebox.keystore")
+            storePassword = "jukebox123"
+            keyAlias = "jukebox"
+            keyPassword = "jukebox123"
+        }
+    }
+
     buildTypes {
+        debug {
+            signingConfig = signingConfigs.getByName("fixed")
+        }
         release {
             isMinifyEnabled = false
         }
