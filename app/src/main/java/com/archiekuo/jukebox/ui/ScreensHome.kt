@@ -22,6 +22,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.GraphicEq
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,12 +52,21 @@ fun SplashScreen(onDone: () -> Unit) {
         onDone()
     }
     Box(Modifier.fillMaxSize().background(Color(0xFF0B1226))) {
-        Image(
-            painter = painterResource(R.drawable.splash_bg),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop,
+        Box(
+            Modifier.fillMaxSize().background(
+                Brush.verticalGradient(listOf(Color(0xFF2B1E5C), Color(0xFF0F2A55), Color(0xFF0B1226))),
+            ),
         )
+        Column(
+            Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Icon(Icons.Filled.Mic, contentDescription = null, tint = Gold, modifier = Modifier.size(88.dp))
+            Spacer(Modifier.height(16.dp))
+            Text("點唱收音機", color = Color.White, fontSize = 34.sp, fontWeight = FontWeight.Bold)
+            Spacer(Modifier.height(6.dp))
+            Text("一首好歌 讓心靈停靠", color = Color.White.copy(alpha = 0.75f), fontSize = 15.sp)
+        }
         Box(
             Modifier
                 .align(Alignment.BottomCenter)
@@ -113,12 +125,29 @@ fun HomeScreen(
                     .clip(RoundedCornerShape(18.dp))
                     .clickable(onClick = onPlayRandom),
             ) {
-                Image(
-                    painter = painterResource(R.drawable.home_hero),
-                    contentDescription = "隨機播放熱門歌曲",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop,
-                )
+                Box(
+                    Modifier.fillMaxSize().background(
+                        Brush.linearGradient(listOf(Color(0xFF3B2A6B), Color(0xFF0F2A55), Color(0xFF123F5A))),
+                    ),
+                ) {
+                    Icon(
+                        Icons.Filled.GraphicEq, contentDescription = null,
+                        tint = Gold.copy(alpha = 0.25f),
+                        modifier = Modifier.align(Alignment.CenterEnd).padding(end = 12.dp).size(heroH * 0.8f),
+                    )
+                    Column(Modifier.align(Alignment.CenterStart).padding(20.dp)) {
+                        Text("一首好歌", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        Text("讓心靈停靠", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        Spacer(Modifier.height(10.dp))
+                        Row(
+                            Modifier.clip(RoundedCornerShape(50)).background(Gold).padding(horizontal = 14.dp, vertical = 6.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                        ) {
+                            Icon(Icons.Filled.PlayArrow, contentDescription = null, tint = Color(0xFF2A1D00), modifier = Modifier.size(18.dp))
+                            Text("隨機播放", color = Color(0xFF2A1D00), fontSize = 13.sp, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
             }
             if (message != null) {
                 Text(

@@ -12,8 +12,8 @@ android {
         applicationId = "com.archiekuo.jukebox"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "1.2.0"
+        versionCode = 4
+        versionName = "1.3.0"
 
         // Optional built-in Client ID, filled from the GitHub secret JAMENDO_CLIENT_ID when building.
         val defaultId = (System.getenv("JAMENDO_CLIENT_ID") ?: "").replace("\"", "").trim()

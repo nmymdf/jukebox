@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -69,7 +70,7 @@ fun NowPlayingScreen(onBack: () -> Unit, onSleep: () -> Unit) {
         inactiveTrackColor = c.surfaceHigh,
     )
 
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().navigationBarsPadding()) {
         TopBar("正在播放", onBack)
         if (song == null) {
             Column(
@@ -89,11 +90,13 @@ fun NowPlayingScreen(onBack: () -> Unit, onSleep: () -> Unit) {
             return@Column
         }
 
-        SongArt(
-            song.image,
-            Modifier.padding(horizontal = 36.dp, vertical = 8.dp).fillMaxWidth().aspectRatio(1f),
-            24.dp,
-        )
+        Box(Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+            SongArt(
+                song.image,
+                Modifier.padding(horizontal = 36.dp, vertical = 8.dp).aspectRatio(1f),
+                24.dp,
+            )
+        }
         Column(Modifier.padding(horizontal = 28.dp).fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
             Text(
                 song.title,
@@ -199,6 +202,7 @@ fun NowPlayingScreen(onBack: () -> Unit, onSleep: () -> Unit) {
             colors = sliderColors,
             modifier = Modifier.padding(horizontal = 36.dp),
         )
+        Spacer(Modifier.height(8.dp))
     }
 }
 

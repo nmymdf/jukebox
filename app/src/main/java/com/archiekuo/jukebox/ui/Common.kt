@@ -4,6 +4,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.material.icons.filled.*
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -78,18 +81,41 @@ fun catBrush(cat: Cat): Brush {
     return Brush.linearGradient(listOf(p.first, p.second))
 }
 
-/** Category picture: the artwork when there is one, otherwise a colour gradient. */
+private fun catIcon(cat: Cat): androidx.compose.ui.graphics.vector.ImageVector {
+    val id = cat.id
+    return when {
+        id.contains("male") && !id.contains("female") -> Icons.Filled.Mic
+        id.contains("female") -> Icons.Filled.Mic
+        id.contains("duet") || id.contains("choir") -> Icons.Filled.Groups
+        id.contains("band") || id.contains("rock") -> Icons.Filled.Album
+        id.contains("instrumental") || id.contains("classical") || id.contains("jazz") -> Icons.Filled.Piano
+        id.contains("calm") || id.contains("sleep") || id.contains("easy") -> Icons.Filled.Bedtime
+        id.contains("happy") || id.contains("beach") || id.contains("sun") -> Icons.Filled.WbSunny
+        id.contains("romantic") || id.contains("warm") -> Icons.Filled.Favorite
+        id.contains("run") || id.contains("workout") || id.contains("gym") -> Icons.Filled.DirectionsRun
+        id.contains("travel") -> Icons.Filled.Flight
+        id.contains("electronic") -> Icons.Filled.GraphicEq
+        else -> when (cat.group) {
+            "人聲" -> Icons.Filled.Mic
+            "心情" -> Icons.Filled.Favorite
+            "曲風" -> Icons.Filled.Album
+            else -> Icons.Filled.Headphones
+        }
+    }
+}
+
+/** Category picture: always sharp, drawn in code (gradient + soft circles + icon). */
 @Composable
 fun CatArt(cat: Cat, modifier: Modifier = Modifier) {
-    if (cat.image != 0) {
-        Image(
-            painter = painterResource(cat.image),
-            contentDescription = null,
-            modifier = modifier,
-            contentScale = ContentScale.Crop,
-        )
-    } else {
-        Box(modifier.background(catBrush(cat)))
+    Box(modifier.background(catBrush(cat)), contentAlignment = Alignment.Center) {
+        androidx.compose.foundation.Canvas(Modifier.fillMaxSize()) {
+            drawCircle(Color.White.copy(alpha = 0.10f), radius = size.minDimension * 0.7f, center = Offset(size.width * 0.85f, size.height * 0.1f))
+            drawCircle(Color.White.copy(alpha = 0.07f), radius = size.minDimension * 0.5f, center = Offset(size.width * 0.1f, size.height * 0.95f))
+        }
+        BoxWithConstraints(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            val side = if (maxWidth < maxHeight) maxWidth else maxHeight
+            Icon(catIcon(cat), contentDescription = null, tint = Color.White.copy(alpha = 0.85f), modifier = Modifier.size(side * 0.42f))
+        }
     }
 }
 
