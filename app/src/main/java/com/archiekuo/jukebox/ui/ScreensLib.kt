@@ -409,7 +409,7 @@ fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Uni
                     .background(Brush.linearGradient(listOf(Color(0xFF3B2A6B), Color(0xFF123F5A)))),
                 contentAlignment = Alignment.Center,
             ) {
-                Text("一首好歌 讓心靈停靠", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text("A good song, a place to rest", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
         item {
