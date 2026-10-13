@@ -34,6 +34,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Key
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Timer
 import androidx.compose.material3.Icon
@@ -263,15 +264,16 @@ private class SettingItem(
 )
 
 @Composable
-fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Unit) {
+fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Unit, onGuide: () -> Unit) {
     val c = LocalJb.current
     val store = LocalStore.current
     val scope = rememberCoroutineScope()
-    var text by remember(store.clientId) { mutableStateOf(store.clientId) }
+    var text by remember(store.clientId) { mutableStateOf(if (store.usingBuiltIn) "" else store.clientId) }
     var status by remember { mutableStateOf<String?>(null) }
     var testing by remember { mutableStateOf(false) }
 
     val items = listOf(
+        SettingItem(Icons.Filled.Key, "取得 Client ID 教學", "一步一步帶你申請 Jamendo 的免費通行證", onGuide),
         SettingItem(Icons.Filled.Timer, "定時關閉", "睡眠模式、倒數停止播放", onSleep),
         SettingItem(Icons.Filled.Category, "分類管理", "新增、刪除自己的分類", onAllCats),
         SettingItem(Icons.Filled.Delete, "清除播放歷史", "目前 ${store.history.size} 首", { store.clearHistory() }),
@@ -293,7 +295,11 @@ fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Uni
                 Text("音樂來源:Jamendo", color = c.text, fontSize = 16.sp, fontWeight = FontWeight.Bold)
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    "到 developer.jamendo.com 用免費帳號建立應用程式,把取得的 Client ID 貼在這裡。",
+                    if (store.usingBuiltIn) {
+                        "目前使用 App 內建的音樂來源,不用另外申請。也可以填入自己的 Client ID 來取代。"
+                    } else {
+                        "把申請到的 Client ID 貼在這裡。還沒有的話,用下面的「取得 Client ID 教學」。"
+                    },
                     color = c.subText,
                     fontSize = 12.sp,
                 )

@@ -47,6 +47,7 @@ import kotlinx.coroutines.launch
 
 sealed interface Screen {
     data object Splash : Screen
+    data object Onboarding : Screen
     data object Home : Screen
     data object Categories : Screen
     data object Library : Screen
@@ -83,7 +84,7 @@ fun JukeboxApp(store: Store, player: PlayerController) {
 
     fun playRandom() {
         if (store.clientId.isBlank()) {
-            homeMessage = "請先到「設定」貼上 Jamendo Client ID,才能播放音樂"
+            push(Screen.Onboarding)
             return
         }
         homeMessage = "正在找歌…"
@@ -140,7 +141,15 @@ fun JukeboxApp(store: Store, player: PlayerController) {
         LocalPickCategory provides { s: Song -> pickSong = s },
     ) {
         if (current == Screen.Splash) {
-            SplashScreen(onDone = { goTab(Screen.Home) })
+            SplashScreen(
+                onDone = {
+                    if (store.clientId.isBlank() && !store.onboardSkipped) {
+                        goTab(Screen.Onboarding)
+                    } else {
+                        goTab(Screen.Home)
+                    }
+                },
+            )
         } else {
             val showBar = when (current) {
                 Screen.Home, Screen.Categories, Screen.Library, Screen.Settings,
@@ -159,6 +168,7 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                 Box(Modifier.weight(1f)) {
                     when (val s = current) {
                         Screen.Splash -> {}
+                        Screen.Onboarding -> OnboardingScreen(onDone = { goTab(Screen.Home) })
                         Screen.Home -> HomeScreen(
                             message = homeMessage,
                             onSearch = { push(Screen.Search) },
@@ -180,7 +190,7 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                                 CategoryDetailScreen(
                                     cat = cat,
                                     onBack = { pop() },
-                                    onSettings = { goTab(Screen.Settings) },
+                                    onSettings = { push(Screen.Onboarding) },
                                     onOpenPlayer = { push(Screen.NowPlaying) },
                                     onDeleted = { pop() },
                                 )
@@ -197,7 +207,7 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                         )
                         Screen.Search -> SearchScreen(
                             onBack = { pop() },
-                            onSettings = { goTab(Screen.Settings) },
+                            onSettings = { push(Screen.Onboarding) },
                             onOpenPlayer = { push(Screen.NowPlaying) },
                         )
                         Screen.SleepTimer -> SleepTimerScreen(sleep = sleep, onBack = { pop() })
@@ -205,6 +215,7 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                             onBack = { goTab(Screen.Home) },
                             onSleep = { push(Screen.SleepTimer) },
                             onAllCats = { goTab(Screen.Categories) },
+                            onGuide = { push(Screen.Onboarding) },
                         )
                     }
                 }

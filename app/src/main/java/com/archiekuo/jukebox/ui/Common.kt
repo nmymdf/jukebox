@@ -294,7 +294,7 @@ fun NoKeyCard(onSettings: () -> Unit) {
         Text("還沒設定音樂來源", color = c.text, fontSize = 16.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(6.dp))
         Text(
-            "要聽音樂,需要先到「設定」貼上 Jamendo 的 Client ID(免費,到 developer.jamendo.com 建立應用程式就能取得)。",
+            "要聽音樂,需要先申請一個免費的 Jamendo Client ID,我們會一步一步帶你完成,大約 3 分鐘。",
             color = c.subText,
             fontSize = 13.sp,
         )
@@ -306,7 +306,7 @@ fun NoKeyCard(onSettings: () -> Unit) {
                 .clickable(onClick = onSettings)
                 .padding(horizontal = 20.dp, vertical = 10.dp),
         ) {
-            Text("前往設定", color = c.onAccent, fontWeight = FontWeight.Bold, fontSize = 14.sp)
+            Text("開始申請", color = c.onAccent, fontWeight = FontWeight.Bold, fontSize = 14.sp)
         }
     }
 }

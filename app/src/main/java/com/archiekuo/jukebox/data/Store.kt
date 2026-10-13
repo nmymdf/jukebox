@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import com.archiekuo.jukebox.BuildConfig
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -13,7 +14,17 @@ import org.json.JSONObject
 class Store(context: Context) {
     private val sp = context.getSharedPreferences("jukebox", Context.MODE_PRIVATE)
 
-    var clientId by mutableStateOf(sp.getString("client_id", "") ?: "")
+    /** Client ID in use: the one the user entered, otherwise the built-in one (may be empty). */
+    var clientId by mutableStateOf(
+        (sp.getString("client_id", "") ?: "").ifBlank { BuildConfig.DEFAULT_CLIENT_ID },
+    )
+        private set
+
+    /** True when the user has not entered an ID and the app is using the built-in one. */
+    val usingBuiltIn: Boolean
+        get() = BuildConfig.DEFAULT_CLIENT_ID.isNotBlank() && clientId == BuildConfig.DEFAULT_CLIENT_ID
+
+    var onboardSkipped by mutableStateOf(sp.getBoolean("skip_onboard", false))
         private set
 
     val favorites = mutableStateListOf<Song>()
@@ -32,8 +43,14 @@ class Store(context: Context) {
 
     // ---------- Client ID ----------
     fun saveClientId(value: String) {
-        clientId = value.trim()
-        sp.edit().putString("client_id", clientId).apply()
+        val v = value.trim()
+        sp.edit().putString("client_id", v).apply()
+        clientId = v.ifBlank { BuildConfig.DEFAULT_CLIENT_ID }
+    }
+
+    fun skipOnboarding() {
+        onboardSkipped = true
+        sp.edit().putBoolean("skip_onboard", true).apply()
     }
 
     // ---------- Favorites ----------
