@@ -1,6 +1,7 @@
 package com.archiekuo.jukebox.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -399,6 +400,7 @@ fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Uni
         }
         item {
             Box(Modifier.padding(horizontal = 20.dp).fillMaxWidth()) {
+                Box {
                 Image(
                     painter = painterResource(R.drawable.settings_footer),
                     contentDescription = null,
@@ -408,6 +410,12 @@ fun SettingsScreen(onBack: () -> Unit, onSleep: () -> Unit, onAllCats: () -> Uni
                         .clip(RoundedCornerShape(18.dp)),
                     contentScale = ContentScale.Crop,
                 )
+                    Text(
+                        "A good song, a place to rest", color = Color.White, fontSize = 22.sp,
+                        fontFamily = ScriptFont, fontWeight = FontWeight.Bold,
+                        modifier = Modifier.align(Alignment.TopCenter).padding(top = 14.dp),
+                    )
+                }
             }
         }
         item {

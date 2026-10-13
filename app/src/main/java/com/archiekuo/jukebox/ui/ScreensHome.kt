@@ -56,6 +56,25 @@ fun SplashScreen(onDone: () -> Unit) {
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Crop,
         )
+        Column(
+            Modifier.align(Alignment.TopCenter).fillMaxWidth().statusBarsPadding().padding(top = 110.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            Text(
+                "點唱收音機", color = Color.White, fontSize = 38.sp, fontWeight = FontWeight.Bold,
+                fontFamily = androidx.compose.ui.text.font.FontFamily.Serif,
+                style = androidx.compose.ui.text.TextStyle(shadow = androidx.compose.ui.graphics.Shadow(Color(0x99000000), androidx.compose.ui.geometry.Offset(0f, 3f), 8f)),
+            )
+            Spacer(Modifier.height(10.dp))
+            Text(
+                "隨時隨地 · 聽見美好", color = Color.White.copy(alpha = 0.92f), fontSize = 17.sp,
+                style = androidx.compose.ui.text.TextStyle(shadow = androidx.compose.ui.graphics.Shadow(Color(0x99000000), androidx.compose.ui.geometry.Offset(0f, 2f), 6f)),
+            )
+        }
+        Text(
+            "Music Brings Us Closer", color = Color.White.copy(alpha = 0.85f), fontSize = 13.sp,
+            modifier = Modifier.align(Alignment.BottomCenter).navigationBarsPadding().padding(bottom = 46.dp),
+        )
         Box(
             Modifier
                 .align(Alignment.BottomCenter)
@@ -120,6 +139,11 @@ fun HomeScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentScale = ContentScale.Crop,
                 )
+                Column(Modifier.align(Alignment.CenterStart).padding(start = 18.dp)) {
+                    val sh = androidx.compose.ui.text.TextStyle(shadow = androidx.compose.ui.graphics.Shadow(Color(0xAA000000), androidx.compose.ui.geometry.Offset(0f, 3f), 8f))
+                    Text("A Good Song,", color = Color.White, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold, style = sh)
+                    Text("A Place to Rest.", color = Gold, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold, style = sh)
+                }
             }
             if (message != null) {
                 Text(

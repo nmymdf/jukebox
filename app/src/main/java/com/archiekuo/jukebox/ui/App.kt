@@ -219,6 +219,11 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                         )
                     }
                 }
+                if (current != Screen.Onboarding) {
+                    Box(Modifier.fillMaxWidth().padding(bottom = 2.dp), contentAlignment = Alignment.Center) {
+                        Credit(size = 10)
+                    }
+                }
                 if (showBar) {
                     BottomBar(
                         selected = selected,
