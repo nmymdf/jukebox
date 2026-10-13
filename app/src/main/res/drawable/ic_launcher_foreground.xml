@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- microphone capsule -->
+    <path
+        android:fillColor="#FFF2B65A"
+        android:pathData="M44,30 a10,10 0 0 1 20,0 L64,52 a10,10 0 0 1 -20,0 Z" />
+    <!-- grille lines -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF8A5A14"
+        android:strokeWidth="1.6"
+        android:pathData="M44.5,34 L63.5,34 M44.5,39 L63.5,39 M44.5,44 L63.5,44 M44.5,49 L63.5,49" />
+    <!-- stand arc -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFF2B65A"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M38,48 C38,66 70,66 70,48" />
+    <!-- stem and base -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFF2B65A"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M54,62 L54,76 M44,77 L64,77" />
+    <!-- music note -->
+    <path
+        android:fillColor="#FFFFE2A8"
+        android:pathData="M27,36 a4,3 0 1 0 8,0 a4,3 0 1 0 -8,0" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFE2A8"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round"
+        android:pathData="M35,36 L35,24 L41,26" />
+</vector>

@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.Jukebox" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">#FFFAF6EE</item>
+    </style>
+</resources>
