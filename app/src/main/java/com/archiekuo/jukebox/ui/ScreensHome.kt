@@ -65,7 +65,7 @@ fun SplashScreen(onDone: () -> Unit) {
             Spacer(Modifier.height(16.dp))
             Text("點唱收音機", color = Color.White, fontSize = 34.sp, fontWeight = FontWeight.Bold)
             Spacer(Modifier.height(6.dp))
-            Text("A good song, a place to rest", color = Color.White.copy(alpha = 0.75f), fontSize = 15.sp)
+            Text("A good song, a place to rest", color = Gold, fontSize = 24.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
         }
         Box(
             Modifier
@@ -136,8 +136,8 @@ fun HomeScreen(
                         modifier = Modifier.align(Alignment.CenterEnd).padding(end = 12.dp).size(heroH * 0.8f),
                     )
                     Column(Modifier.align(Alignment.CenterStart).padding(20.dp)) {
-                        Text("A Good Song,", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
-                        Text("A Place to Rest.", color = Color.White, fontSize = 22.sp, fontWeight = FontWeight.Bold)
+                        Text("A Good Song,", color = Color.White, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
+                        Text("A Place to Rest.", color = Gold, fontSize = 30.sp, fontFamily = ScriptFont, fontWeight = FontWeight.Bold)
                         Spacer(Modifier.height(10.dp))
                         Row(
                             Modifier.clip(RoundedCornerShape(50)).background(Gold).padding(horizontal = 14.dp, vertical = 6.dp),

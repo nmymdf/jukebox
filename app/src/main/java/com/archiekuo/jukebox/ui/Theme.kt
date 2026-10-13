@@ -75,3 +75,10 @@ fun JukeboxTheme(content: @Composable () -> Unit) {
         MaterialTheme(colorScheme = scheme, content = content)
     }
 }
+
+val ScriptFont = androidx.compose.ui.text.font.FontFamily(
+    androidx.compose.ui.text.font.Font(com.archiekuo.jukebox.R.font.script_bold, androidx.compose.ui.text.font.FontWeight.Bold),
+)
+val SerifFont = androidx.compose.ui.text.font.FontFamily(
+    androidx.compose.ui.text.font.Font(com.archiekuo.jukebox.R.font.serif_bold, androidx.compose.ui.text.font.FontWeight.Bold),
+)
