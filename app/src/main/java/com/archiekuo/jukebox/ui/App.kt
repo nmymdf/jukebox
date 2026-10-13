@@ -5,6 +5,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.consumeWindowInsets
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -165,7 +169,13 @@ fun JukeboxApp(store: Store, player: PlayerController) {
             }
 
             Column(Modifier.fillMaxSize().background(c.bg)) {
-                Box(Modifier.weight(1f)) {
+                Box(
+                    Modifier.fillMaxWidth().statusBarsPadding().padding(top = 4.dp, bottom = 2.dp),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Credit(size = 14)
+                }
+                Box(Modifier.weight(1f).consumeWindowInsets(WindowInsets.statusBars)) {
                     when (val s = current) {
                         Screen.Splash -> {}
                         Screen.Onboarding -> OnboardingScreen(onDone = { goTab(Screen.Home) })
@@ -217,11 +227,6 @@ fun JukeboxApp(store: Store, player: PlayerController) {
                             onAllCats = { goTab(Screen.Categories) },
                             onGuide = { push(Screen.Onboarding) },
                         )
-                    }
-                }
-                if (current != Screen.Onboarding) {
-                    Box(Modifier.fillMaxWidth().padding(bottom = 2.dp), contentAlignment = Alignment.Center) {
-                        Credit(size = 10)
                     }
                 }
                 if (showBar) {

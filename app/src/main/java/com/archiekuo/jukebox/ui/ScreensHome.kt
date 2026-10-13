@@ -24,6 +24,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Mic
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
@@ -115,7 +117,11 @@ fun HomeScreen(
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(Modifier.weight(1f)) {
-                    Text("點唱收音機", color = c.accent, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(Icons.Filled.Mic, contentDescription = null, tint = c.accent, modifier = Modifier.size(26.dp))
+                        Spacer(Modifier.width(8.dp))
+                        Text("點唱收音機", color = c.accent, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    }
                     Text("隨時隨地 · 聽見美好", color = c.subText, fontSize = 12.sp)
                 }
                 IconButton(onClick = onSearch) {

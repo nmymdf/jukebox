@@ -3,7 +3,7 @@ package com.archiekuo.jukebox.data
 import org.json.JSONArray
 import org.json.JSONObject
 
-const val APP_VERSION = "v1.3.2"
+const val APP_VERSION = "v1.3.3"
 const val CREDIT = "作者:ArchieKUO ‧ $APP_VERSION"
 
 val GROUPS = listOf("人聲", "心情", "曲風", "情境")
